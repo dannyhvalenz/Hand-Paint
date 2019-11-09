@@ -225,16 +225,17 @@ input:checked+.slider:before {
 
 }
 
-
-.updatenote{
-    padding: 12px;
-    background: #ff8800;
-    color: #fff;
-    /* font-weight: bold; */
-
+.btn-space {
+    margin-right: 15px;
+}
+.custom-range::-webkit-slider-thumb {
+  background: orangered;
 }
 
-.trackbutton{
-    /* background: #ff8800;
-    color: #fff; */
+.custom-range::-moz-range-thumb {
+  background: orangered;
+}
+
+.custom-range::-ms-thumb {
+  background: orangered;
 }

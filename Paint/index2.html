@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GARABATEANDO</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../Paint/css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary" id="barra_navegacion">
+        <a class="navbar-brand" href="#">
+            Garabateando
+        </a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                    <a id="updatenote" class="text-light text-color">Cargando el modelo...</a>
+            </li>
+        </ul>
+        
+        <form class="form-inline my-2 my-lg-0">
+            <!--ACTIVAR VIDEO-->
+            <button  id="trackbutton" class="btn btn-warning btn-space" type="button" enabled>
+                    Video
+            </button>
+
+            <!--GROSOR-->          
+            <div class="btn-space">
+                <label for="customRange2" class="text-light">Grosor</label>
+                <input type="range" class="custom-range " min="10" max="100" id="customRange2" onchange="stamano(this.value)">
+            </div>
+            
+            <!--COLOR PICKER-->
+            <input type="color" id="colores" onchange="scolor()" style="border: none;"/>
+            
+            <!--FORMAS DE PINTAR-->
+            <button type="button" class="btn my-2 my-sm-0 btn-space" onclick="lapiz()">
+                <img src="../Paint/img/lapiz.png" alt="lapiz" width="25px" height="25px" class="imagenes">
+            </button>
+            <button type="button" class="btn my-2 my-sm-0 btn-space" onclick="borrador()">
+                <img src="../Paint/img/borrador.png" alt="borrador" width="25px" height="25px" class="imagenes">
+            </button>
+            <button type="button" class="btn my-2 my-sm-0 btn-space" onclick="relleno()">
+                <img src="../Paint/img/bucket.png" alt="relleno" width="25px" height="25px" class="imagenes">
+            </button>
+        </form>
+    </nav>
+    
+    <video class="videobox canvasbox" autoplay="autoplay" id="myvideo"></video>
+    <canvas id="canvas" class="border canvasbox"></canvas>
+    <table>
+        <tr>
+            <td><canvas id="canvasPaint" width="1267px" height="580px" onmousemove="pintar(event);", onmousedown="activar();", onmouseup="desactivar();"></canvas></td>
+        </tr>   
+    </table>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/planck-js/0.1.44/planck-with-testbed.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handtrackjs@latest/dist/handtrack.min.js"> </script>
+    <script src="../Paint/js/paint.js"></script>
+</body>
+</html>

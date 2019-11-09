@@ -28,7 +28,6 @@ function startVideo() {
     handTrack.startVideo(video).then(function (status) {
         console.log("video started", status);
         if (status) {
-            updateNote.innerText = "Now tracking"
             isVideo = true
             runDetection()
         } else {
@@ -39,13 +38,10 @@ function startVideo() {
 
 function toggleVideo() {
     if (!isVideo) {
-        updateNote.innerText = "Starting video"
         startVideo();
     } else {
-        updateNote.innerText = "Stopping video"
         handTrack.stopVideo(video)
         isVideo = false;
-        updateNote.innerText = "Video stopped"
     }
 }
 
@@ -54,8 +50,8 @@ trackButton.addEventListener("click", function () {
 });
 
 handTrack.load(modelParams).then(lmodel => {
-    model = lmodel
-    updateNote.innerText = "Loaded Model!"
+    model = lmodel;
+    updatenote.style.display = "none";
     trackButton.disabled = false
 });
 
@@ -64,18 +60,18 @@ let windowYRange, worldYRange = 0
 let Vec2
 let accelFactor
 
-windowXRange = [0, windowWidth]
-worldXRange = [-(SPACE_WIDTH / 2), SPACE_WIDTH / 2]
-
-windowYRange = [0, windowHeight]
-worldYRange = [-(SPACE_HEIGHT / 2), SPACE_HEIGHT / 2]
-
 windowHeight =  canvasPaint.clientHeight
 windowWidth = canvasPaint.clientWidth
 
 var scale_factor = 10
 var SPACE_WIDTH = windowWidth / scale_factor;
 var SPACE_HEIGHT = windowHeight / scale_factor;
+
+windowXRange = [0, windowWidth]
+worldXRange = [-(SPACE_WIDTH / 2), SPACE_WIDTH / 2]
+
+windowYRange = [0, windowHeight]
+worldYRange = [-(SPACE_HEIGHT / 2), SPACE_HEIGHT / 2]
 
 accelFactor = 0.042 * SPACE_WIDTH;
 
@@ -88,9 +84,6 @@ function runDetection() {
             gamex = document.body.clientWidth * (midvalH / video.width)
             gamey = document.body.clientHeight * (midvalV / video.height)
 
-            if (isVideo){
-                updateNote.innerText = "Coordenadas MOUSEX y MOUSEY: " + gamex + "," + gamey
-            }
             pintar(event,gamex,gamey)
             
         }
@@ -124,14 +117,13 @@ function pintar(event,gamex, gamey){
             // ACTUALIZAR ANTERIOR
             anteriorX = gamex;
             anteriorY = gamey;
-            updateNote.innerText = "Coordenadas MOUSEX y MOUSEY: " + gamex + "," + gamey
         }
     } else {
         document.getElementById("canvasPaint").style.cursor = "pointer";
         pinturaCamara = false;
         var x = event.clientX;
-        var y = event.clientY-20;
-        updateNote.innerText = "Coordenadas mouse: " + x + "," + y
+        var alturaBarra = document.getElementById("barra_navegacion").clientHeight;
+        var y = event.clientY-alturaBarra;
         if(!pinturaCamara){
             ctx.fillStyle = color;
             ctx.fillRect (x,y,tamano,tamano);
