@@ -81,10 +81,16 @@ function runDetection() {
         if (predictions[0]) {
             let midvalH = predictions[0].bbox[0] + (predictions[0].bbox[2] / 2)
             let midvalV = predictions[0].bbox[1] + (predictions[0].bbox[3] / 2)
-            gamex = document.body.clientWidth * (midvalH / video.width)
-            gamey = document.body.clientHeight * (midvalV / video.height)
+            //gamex = document.body.clientWidth * (midvalH / video.width)
+            //gamey = document.body.clientHeight * (midvalV / video.height)
 
-            pintar(event,gamex,gamey)
+            var xVideo = (midvalH * windowWidth) / video.width;
+            
+            let yVideo = (midvalV * windowHeight) / video.height;
+            
+
+            //pintar(event,gamex,gamey);
+            pintar(event,xVideo,yVideo);
             
         }
         if (isVideo) {
