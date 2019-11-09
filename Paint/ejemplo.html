@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>plantillapaint</title>
+		<meta name="description" content="">
+		<meta name="author" content="satur">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	</head>
+<style type="text/css">
+		canvas {
+			border : solid 1px;
+			cursor : url('lapizcursor.gif'), default;
+		}
+		.herramientas {
+			width: 100px;
+		}
+		.herramientas div {
+			background-color: black;
+		}
+		.herramientas div:hover{
+			border: solid red 1px;
+		}
+		.herramientas img:hover{
+			border: solid red 1px;
+		}
+	</style>
+	<body>
+		<table>
+			<tr>
+				<td><canvas width="500" height="500" id="canvas" onmousemove="pintar(event);" onmousedown="activar();" onmouseup="desactivar();"></canvas></td>
+				<td class="herramientas">
+					<a href="#" onclick="lapiz();"><img src="lapiz.png" /></a>
+					<a href="#" onclick="borrador();"><img src="borrador.png" /></a>
+					<div style="width: 10px; height: 10px;" onclick="stamano(10);"></div><br />
+					<div style="width: 20px; height: 20px;" onclick="stamano(20);"></div><br />
+					<div style="width: 30px; height: 30px;" onclick="stamano(30);"></div><br />
+					<div style="width: 40px; height: 40px;" onclick="stamano(40);"></div><br />
+					<input type="color" id="colores" onchange="scolor();"/>
+					<a href="#" download="canvas.png" id="guardarimagen" >Guardar como imagen</a>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GARABATEANDO</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="../Paint/css/estilo.css">
+    <link rel="stylesheet" href="../Paint/css/w3.css">
+    <style>
+    body, html {
+        width: 100%;
+        height: 100%;
+    }
+    .slidecontainer {
+        width: 100%;
+    }
+
+    .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 7px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+
+    .slider:hover {
+    opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+    }
+
+.slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <!--Diseño de paint-->
+    <div class="w3-bar w3-blue">
+        <span class="w3-bar-item w3-mobile titulo">
+            <a href="index.html" class="w3-bar-item w3-mobile" style="text-decoration: none;">
+                Garabateando
+            </a>
+        </span>
+        <span class="w3-bar-item w3-mobile titulo w3-right">
+            <a href="#" onclick="lapiz();" class="w3-bar-item w3-mobile">
+                <img src="../Paint/img/lapiz.png" alt="lapiz" width="25px" height="25px" class="imagenes">
+            </a>
+        </span>
+        <span class="w3-bar-item w3-mobile titulo w3-right">
+            <a href="#" onclick="borrador();" class="w3-bar-item w3-mobile">
+                <img src="../Paint/img/borrador.png" alt="borrador" width="25px" height="25px" class="imagenes">
+            </a>
+        </span>
+        <span class="w3-bar-item w3-mobile titulo w3-right">
+            <a href="#" onclick="relleno();" class="w3-bar-item w3-mobile">
+                <img src="../Paint/img/bucket.png" alt="relleno" width="25px" height="25px" class="imagenes">
+            </a>
+        </span>
+        <span class="w3-bar-item w3-mobile titulo w3-right">
+            <a href="#" class="w3-bar-item w3-mobile">
+                <input type="color" id="colores" onchange="scolor();" style="border: none;"/>
+            </a>
+        </span>
+        <!--
+        <span class="w3-bar-item w3-mobile titulo w3-right">
+            <div class="w3-bar-item w3-mobile">
+                <input type="range" min="1" max="50" value="25" class="w3-bar-item w3-mobile slider" id="myRange" onclick="grosor();">
+            </div>
+        </span>
+        -->
+        <span class="w3-bar-item w3-mobile titulo w3-right">
+            <div class="w3-bar-item w3-mobile">
+                <div class="borde w3-hover-red" style="width: 10px; height: 10px;" onclick="stamano(10);"></div>
+            </div>
+        </span>
+
+        <span class="w3-bar-item w3-mobile titulo w3-right">
+            <div class="w3-bar-item w3-mobile">
+                <div class="borde w3-hover-red" style="width: 20px; height: 20px;" onclick="stamano(20);"></div>
+            </div>
+        </span>
+        <span class="w3-bar-item w3-mobile titulo w3-right">
+            <div class="w3-bar-item w3-mobile">
+                <div class="borde w3-hover-red"  style="width: 30px; height: 30px;" onclick="stamano(30);"></div>
+            </div>
+        </span>
+        <span class="w3-bar-item w3-mobile titulo w3-right">
+            <div class="w3-bar-item w3-mobile">
+                <div class="borde w3-hover-red" style="width: 40px; height: 40px;" onclick="stamano(40);"></div>
+            </div>
+        </span>
+				
+        <span class="w3-bar-item w3-mobile titulo w3-right">
+            <div class="w3-bar-item w3-mobile">
+                <button  id="trackbutton" class="bx--btn bx--btn--secondary w3-button w3-orange" type="button" enabled>
+                    Video
+                </button>
+            </div>
+        </span> 
+        
+    </div>
+    <video class="videobox canvasbox" autoplay="autoplay" id="myvideo"></video>
+    <canvas id="canvas" class="border canvasbox"></canvas>
+    <table>
+        <tr>
+             <td><canvas id="canvasPaint" width="1267px" height="560px" onmousemove="pintar(event);", onmousedown="activar();", onmouseup="desactivar();"></canvas></td>
+             <!--<td><canvas id="canvasPaint" width="1267px" height="560px" onmousemove="pintar(event);"></canvas></td>--->
+        </tr>   
+    </table>
+    <div id="updatenote" class="updatenote mt10 w3-orange"> loading model ..</div>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/planck-js/0.1.44/planck-with-testbed.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handtrackjs@latest/dist/handtrack.min.js"> </script>
+    <script src="../Paint/js/paint.js"></script>
+    
+</body>
+</html>
