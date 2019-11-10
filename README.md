@@ -63,3 +63,9 @@ En una escuela primaria se quiere implementar un taller donde los alumnos de 1er
 - [x] El usuario podrá borrar los trazos no deseados
 - [x] El usuario podrá ser acceder al sistema desde cualquier navegador web 
 - [x] El usuario podrá controlar el sistema con los movimientos de su mano
+
+
+## Third Party Software
+- [Material Icons Bootstrap](https://github.com/google/material-design-icons) 
+- [Handtrack.js](https://github.com/victordibia/handtrack.js/)
+- [Bootstrap 4](https://getbootstrap.com/)
