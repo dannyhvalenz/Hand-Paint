@@ -3,31 +3,6 @@
     background-color: white;
 }
 
-.herramientas{
-    width: 100px;
-}
-
-.link{
-    background-color: white;
-}
-
-.imagenes:hover{
-    border: solid red 3px;
-}
-
-.titulo{
-    font-family: verdana;
-    font-size: 20px;
-}
-
-.borde{
-    border: solid red 3px;
-}
-
-.borde:visited{
-    background-color: red;
-}
-
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
