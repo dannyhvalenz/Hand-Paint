@@ -1,3 +1,14 @@
+document.getElementById("btnPintar").style.backgroundColor = "#FDC208";
+document.getElementById("btnPintar").style.color = "black";
+//document.getElementById("btnPintar").style.boxShadow = "none"; 
+document.getElementById("btnBorrar").style.backgroundColor = "transparent";
+document.getElementById("btnBorrar").style.color = "#FDC208";
+//document.getElementById("btnBorrar").style.boxShadow = "none"; 
+document.getElementById("btnRelleno").style.backgroundColor = "transparent";
+document.getElementById("btnRelleno").style.color = "#FDC208";
+//document.getElementById("btnRelleno").style.boxShadow = "none"; 
+
+var relleno = new Boolean(false);
 const video = document.getElementById("myvideo");
 const canvas = document.getElementById("canvas");
 const canvasPaint = document.getElementById("canvasPaint");
@@ -28,8 +39,8 @@ function startVideo() {
     handTrack.startVideo(video).then(function (status) {
         console.log("video started", status);
         if (status) {
-            isVideo = true
-            runDetection()
+            isVideo = true;
+            runDetection();
         } else {
             updateNote.innerText = "Please enable video"
         }
@@ -38,9 +49,16 @@ function startVideo() {
 
 function toggleVideo() {
     if (!isVideo) {
+        document.getElementById("trackbutton").style.backgroundColor = "#167BFF";
+        document.getElementById("trackbutton").style.borderColor = "#167BFF";
+        document.getElementById("trackbutton").style.color = "white";
+        document.getElementById("trackbutton").style.boxShadow = "none"; 
         startVideo();
     } else {
-        handTrack.stopVideo(video)
+        document.getElementById("trackbutton").style.backgroundColor = "#FDC208";
+        document.getElementById("trackbutton").style.borderColor = "#FDC208";
+        document.getElementById("trackbutton").style.color = "black";
+        handTrack.stopVideo(video);
         isVideo = false;
     }
 }
@@ -149,18 +167,35 @@ function desactivar(){
 
 
 function borrador(){
+    relleno = false;
+    document.getElementById("btnPintar").style.backgroundColor = "transparent";
+    document.getElementById("btnPintar").style.color = "#FDC208";
+    document.getElementById("btnBorrar").style.backgroundColor = "#FDC208";
+    document.getElementById("btnBorrar").style.color = "black";
+    document.getElementById("btnRelleno").style.backgroundColor = "transparent";
+    document.getElementById("btnRelleno").style.color = "#FDC208";
     document.getElementById("canvasPaint").style.cursor = "cursor: url('../img/pencil.cur'), auto";
     color = "#FFFFFF";
     document.getElementById("colores").setAttribute("disable", "");
 }
 
 function lapiz(){
+    relleno = false;
+    document.getElementById("btnPintar").style.backgroundColor = "#FDC208";
+    document.getElementById("btnPintar").style.color = "black";
+    document.getElementById("btnBorrar").style.backgroundColor = "transparent";
+    document.getElementById("btnBorrar").style.color = "#FDC208";
+    document.getElementById("btnRelleno").style.backgroundColor = "transparent";
+    document.getElementById("btnRelleno").style.color = "#FDC208";
     color = document.getElementById("colores").value;
     document.getElementById("colores").removeAttribute("disable");
 }
 
 function scolor(){
     color = document.getElementById("colores").value;
+    if(relleno == true){
+        document.getElementById("canvasPaint").style.backgroundColor = color;
+    }
 }
 
 function stamano(numero){
@@ -171,9 +206,16 @@ function grosor(){
     tamano = slider.value;
 }
 
-function relleno(){
-    color = document.getElementById("colores").value;
+function rellenar(){
+    document.getElementById("btnPintar").style.backgroundColor = "transparent";
+    document.getElementById("btnPintar").style.color = "#FDC208";
+    document.getElementById("btnBorrar").style.backgroundColor = "transparent";
+    document.getElementById("btnBorrar").style.color = "#FDC208";
+    document.getElementById("btnRelleno").style.backgroundColor = "#FDC208";
+    document.getElementById("btnRelleno").style.color = "black";
+    //color = document.getElementById("colores").value;
     document.getElementById("canvasPaint").style.backgroundColor = color;
+    relleno = true;
 }
 
 function convertToRange(value, srcRange, dstRange) {
