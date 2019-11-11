@@ -120,37 +120,39 @@ function runDetection() {
 }
 
 function pintar(event,gamex, gamey){
-    if (isVideo){
-        pinturaCamara = true;
-        document.getElementById("canvasPaint").style.cursor = "none";
-        //mouseX = convertToRange(gamex, windowXRange, worldXRange);
-        if(pinturaCamara){
-            //ctx.fillStyle = color;
-            //ctx.fillRect (gamex, gamey, tamano, tamano);
-            if (anteriorX == 0){
-                anteriorX = event.clientX;
-                anteriorY = event.clientY-20;
+    if (relleno == false){
+        if (isVideo){
+            pinturaCamara = true;
+            document.getElementById("canvasPaint").style.cursor = "none";
+            //mouseX = convertToRange(gamex, windowXRange, worldXRange);
+            if(pinturaCamara){
+                //ctx.fillStyle = color;
+                //ctx.fillRect (gamex, gamey, tamano, tamano);
+                if (anteriorX == 0){
+                    anteriorX = event.clientX;
+                    anteriorY = event.clientY-20;
+                }
+                
+                ctx.beginPath();
+                ctx.moveTo(anteriorX, anteriorY);
+                ctx.lineTo(gamex, gamey);
+                ctx.lineWidth = tamano;
+                ctx.strokeStyle = color;
+                ctx.stroke();
+                // ACTUALIZAR ANTERIOR
+                anteriorX = gamex;
+                anteriorY = gamey;
             }
-            
-            ctx.beginPath();
-            ctx.moveTo(anteriorX, anteriorY);
-            ctx.lineTo(gamex, gamey);
-            ctx.lineWidth = tamano;
-            ctx.strokeStyle = color;
-            ctx.stroke();
-            // ACTUALIZAR ANTERIOR
-            anteriorX = gamex;
-            anteriorY = gamey;
-        }
-    } else {
-        document.getElementById("canvasPaint").style.cursor = "pointer";
-        pinturaCamara = false;
-        var x = event.clientX;
-        var alturaBarra = document.getElementById("barra_navegacion").clientHeight;
-        var y = event.clientY-alturaBarra;
-        if(!pinturaCamara){
-            ctx.fillStyle = color;
-            ctx.fillRect (x,y,tamano,tamano);
+        } else {
+            document.getElementById("canvasPaint").style.cursor = "pointer";
+            pinturaCamara = false;
+            var x = event.clientX;
+            var alturaBarra = document.getElementById("barra_navegacion").clientHeight;
+            var y = event.clientY-alturaBarra;
+            if(!pinturaCamara){
+                ctx.fillStyle = color;
+                ctx.fillRect (x,y,tamano,tamano);
+            }
         }
     }
 }
