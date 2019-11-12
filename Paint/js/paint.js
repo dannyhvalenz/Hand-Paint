@@ -9,6 +9,8 @@ document.getElementById("btnRelleno").style.color = "#FDC208";
 //document.getElementById("btnRelleno").style.boxShadow = "none"; 
 
 var relleno = new Boolean(false);
+var pinta = new Boolean(true);
+var borrar = new Boolean(false);
 const video = document.getElementById("myvideo");
 const canvas = document.getElementById("canvas");
 const canvasPaint = document.getElementById("canvasPaint");
@@ -120,7 +122,7 @@ function runDetection() {
 }
 
 function pintar(event,gamex, gamey){
-    if (relleno == false){
+    if (pinta == true){
         if (isVideo){
             pinturaCamara = true;
             document.getElementById("canvasPaint").style.cursor = "none";
@@ -151,7 +153,32 @@ function pintar(event,gamex, gamey){
             var y = event.clientY-alturaBarra;
             if(!pinturaCamara){
                 ctx.fillStyle = color;
-                ctx.fillRect (x,y,tamano,tamano);
+                ctx.fillRect(x,y,tamano,tamano);
+            }
+        }
+    } else if (borrar == true){
+        if (isVideo){
+            pinturaCamara = true;
+            document.getElementById("canvasPaint").style.cursor = "none";
+            if(pinturaCamara){
+                if (anteriorX == 0){
+                    anteriorX = event.clientX;
+                    anteriorY = event.clientY-20;
+                }
+                ctx.clearRect(anteriorX,anteriorY,tamano, tamano);
+                // ACTUALIZAR ANTERIOR
+                anteriorX = gamex;
+                anteriorY = gamey;
+            }
+        } else {
+            document.getElementById("canvasPaint").style.cursor = "pointer";
+            pinturaCamara = false;
+            var x = event.clientX;
+            var alturaBarra = document.getElementById("barra_navegacion").clientHeight;
+            var y = event.clientY-alturaBarra;
+            if(!pinturaCamara){
+                ctx.fillStyle = color;
+                ctx.clearRect(x,y,tamano,tamano);
             }
         }
     }
@@ -170,6 +197,8 @@ function desactivar(){
 
 function borrador(){
     relleno = false;
+    pinta = false;
+    borrar = true;
     document.getElementById("btnPintar").style.backgroundColor = "transparent";
     document.getElementById("btnPintar").style.color = "#FDC208";
     document.getElementById("btnBorrar").style.backgroundColor = "#FDC208";
@@ -183,6 +212,8 @@ function borrador(){
 
 function lapiz(){
     relleno = false;
+    pinta = true;
+    borrar = false;
     document.getElementById("btnPintar").style.backgroundColor = "#FDC208";
     document.getElementById("btnPintar").style.color = "black";
     document.getElementById("btnBorrar").style.backgroundColor = "transparent";
@@ -218,6 +249,8 @@ function rellenar(){
     //color = document.getElementById("colores").value;
     document.getElementById("canvasPaint").style.backgroundColor = color;
     relleno = true;
+    pinta = false;
+    borrar = false;
 }
 
 function convertToRange(value, srcRange, dstRange) {
