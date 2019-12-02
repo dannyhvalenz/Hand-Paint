@@ -1,3 +1,16 @@
+/**
+ * Daniela Hernández Valenzuela
+ * Valeria Sanchez García
+ * Juan José Guzmán Landa
+ * Bryan Alberto Durán Cuellar
+ * Luis Pablo Reyes Fernández
+ * 
+ * Universidad Veracruzana
+ * Materia: Interacción Humano Computadora
+ * Fecha: 25 de noviembre del 2019
+ * Facilitador: Dr. Rafael Rojano Cáceres
+ */
+
 document.getElementById("btnPintar").style.backgroundColor = "#FDC208";
 document.getElementById("btnPintar").style.color = "black";
 //document.getElementById("btnPintar").style.boxShadow = "none"; 
@@ -24,19 +37,22 @@ let isVideo = false;
 let model = null;
 let videoInterval = 100
 
+// VALORES PREDETERMINADOS PARA PINTAR
 var color = "#000000";
 var tamano = 10;
 var pintura = false;
 var pinturaCamara = false;
 var anteriorX, anteriorY = 0;
 
+// PARAMETROS PARA EL VIDEO
 const modelParams = {
-    maxNumBoxes: 1, // maximum number of boxes to detect
+    maxNumBoxes: 1, // Numero de manos que va a detectar
     iouThreshold: 0.5, // ioU threshold for non-max suppression
     scoreThreshold: 0.6, // confidence threshold for predictions.
-    flipHorizontal: true,
+    flipHorizontal: true, // si el video va a ser como un espejo o no
 }
 
+// FUNCION QUE NOS PERMITE COMENZAR A DETECTAR LAS MANOS PARA PINTAR
 function startVideo() {
     handTrack.startVideo(video).then(function (status) {
         console.log("video started", status);
@@ -49,6 +65,7 @@ function startVideo() {
     });
 }
 
+// FUNCION QUE CAMBIA EL BOTON DE VIDEO DEPENDEINDO SI ESTA ACTIVADO O NO
 function toggleVideo() {
     if (!isVideo) {
         document.getElementById("trackbutton").style.backgroundColor = "#167BFF";
@@ -69,6 +86,7 @@ trackButton.addEventListener("click", function () {
     toggleVideo();
 });
 
+// FUNCION QUE CARGA EL HANDTRACK AL PROYECTO
 handTrack.load(modelParams).then(lmodel => {
     model = lmodel;
     updatenote.style.display = "none";
@@ -80,6 +98,7 @@ let windowYRange, worldYRange = 0
 let Vec2
 let accelFactor
 
+// MEDIDAS DEL CANVAS DONDE SE VA A PINTAR
 windowHeight =  canvasPaint.clientHeight
 windowWidth = canvasPaint.clientWidth
 
@@ -95,6 +114,7 @@ worldYRange = [-(SPACE_HEIGHT / 2), SPACE_HEIGHT / 2]
 
 accelFactor = 0.042 * SPACE_WIDTH;
 
+// FUNCION QUE PERMITE CAPTAR LA MANO DESDE LA CAMARA Y PASARLO A COORDENADAS EN EL CANVAS
 function runDetection() {
     model.detect(video).then(predictions => {
         model.renderPredictions(predictions, canvas, context, video);
@@ -107,7 +127,8 @@ function runDetection() {
             var xVideo = (midvalH * windowWidth) / video.width;
             
             let yVideo = (midvalV * windowHeight) / video.height;
-            
+            //let x = convertToRange(xVideo,windowXRange, worldXRange);
+            //console.log("x=" +x);
 
             //pintar(event,gamex,gamey);
             pintar(event,xVideo,yVideo);
@@ -121,9 +142,11 @@ function runDetection() {
     });
 }
 
+// FUNCION QUE PERMITE PINTAR O BORRAR SEGUN SEA EL CASO YA SEA CON LA MANO O CON EL MOUSE
 function pintar(event,gamex, gamey){
     if (pinta == true){
         if (isVideo){
+            //PINTAR CON LA MANO
             pinturaCamara = true;
             document.getElementById("canvasPaint").style.cursor = "none";
             //mouseX = convertToRange(gamex, windowXRange, worldXRange);
@@ -146,6 +169,7 @@ function pintar(event,gamex, gamey){
                 anteriorY = gamey;
             }
         } else {
+            //PINTAR CON EL MOUSE
             document.getElementById("canvasPaint").style.cursor = "pointer";
             pinturaCamara = false;
             var x = event.clientX;
@@ -158,6 +182,7 @@ function pintar(event,gamex, gamey){
         }
     } else if (borrar == true){
         if (isVideo){
+            //BORRAR CON LA MANO
             pinturaCamara = true;
             document.getElementById("canvasPaint").style.cursor = "none";
             if(pinturaCamara){
@@ -171,6 +196,7 @@ function pintar(event,gamex, gamey){
                 anteriorY = gamey;
             }
         } else {
+            //BORRAR CON EL MOUSE
             document.getElementById("canvasPaint").style.cursor = "pointer";
             pinturaCamara = false;
             var x = event.clientX;
@@ -184,6 +210,7 @@ function pintar(event,gamex, gamey){
     }
 }
 
+
 function activar(){
     pintura = true;
     pinturaCamara = true;
@@ -194,7 +221,7 @@ function desactivar(){
     pinturaCamara = false;
 }
 
-
+// FUNCION QUE CAMBIA EL COLOR DEL BOTON DE BORRADOR Y HABILITA LA FUNCION DE BORRAR
 function borrador(){
     relleno = false;
     pinta = false;
@@ -210,6 +237,7 @@ function borrador(){
     document.getElementById("colores").setAttribute("disable", "");
 }
 
+// FUNCION QUE CAMBIA EL COLOR DEL BOTON DE LAPIZ Y HABILITA LA FUNCION DE PINTAR
 function lapiz(){
     relleno = false;
     pinta = true;
@@ -224,6 +252,7 @@ function lapiz(){
     document.getElementById("colores").removeAttribute("disable");
 }
 
+// FUNCION QUE DETECTA EL COLOR DEL COLORPICKER Y HACE QUE SE PUEDA PINTAR CON ESE COLOR
 function scolor(){
     color = document.getElementById("colores").value;
     if(relleno == true){
@@ -231,14 +260,17 @@ function scolor(){
     }
 }
 
+// FUNCION QUE DETECTA EL VALOR DEL RANGE Y LO PONE COMO GROSOR DE LA LINEA
 function stamano(numero){
     tamano = numero;
 }
+
 function grosor(){
     var slider = document.getElementById("myRange");
     tamano = slider.value;
 }
 
+// FUNCION QUE CAMBIA EL COLOR DEL BOTON DE RELLENO Y HABILITA LA FUNCION DE RELLENAR
 function rellenar(){
     document.getElementById("btnPintar").style.backgroundColor = "transparent";
     document.getElementById("btnPintar").style.color = "#FDC208";
@@ -253,6 +285,9 @@ function rellenar(){
     borrar = false;
 }
 
+
+// CONVIERTE VALORES A UN RANGO MAS ACERTADO
+// NO SE HA LOGRADO IMPLEMENTAR
 function convertToRange(value, srcRange, dstRange) {
     // value is outside source range return
     if (value < srcRange[0] || value > srcRange[1]) {
